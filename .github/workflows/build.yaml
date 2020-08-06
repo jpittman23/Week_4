@@ -9,9 +9,12 @@ jobs:
   package:
   deploy:
 
+name: cibuild
+
 on:
   push:
-    - master
+    brancher:
+      - master
 
 
 # person:
