@@ -9,6 +9,9 @@ jobs:
   package:
   deploy:
 
+on:
+  push:
+    - master
 
 
 # person:
