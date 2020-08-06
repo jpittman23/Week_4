@@ -13,15 +13,16 @@ jobs:
       - run: dotnet test -p:CollectCoverage=true
 
   analyze:
-      runs-on: ubuntu-20.04
-      steps:
-        -uses: actions/checkout@v2.3.1
-        - run: dotnet tool install --global dotnet-sonarscanner
-        - run: |
-            dotnet sonarscanner begin -o:'jpittman23' -k:'jpittman23_Week_4' -d:sonar.login='54dd918b839b1a960f1b72990516160a954fbf66'
-            dotnet build
-            dotnet test -p:CollectCoverage=true
-            dotnet sonarscanner end -d:sonar.login='54dd918b839b1a960f1b72990516160a954fbf66'
+    needs: [build, test]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2.3.1
+      - run: dotnet tool install --global dotnet-sonarscanner
+      - run: |
+          dotnet sonarscanner begin -o:'jpittman23' -k:'jpittman23_Week_4' -d:sonar.login='54dd918b839b1a960f1b72990516160a954fbf66'
+          dotnet build
+          dotnet test -p:CollectCoverage=true
+          dotnet sonarscanner end -d:sonar.login='54dd918b839b1a960f1b72990516160a954fbf66'
   # package:
   # deploy:
 
