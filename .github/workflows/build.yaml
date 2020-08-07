@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2.3.1
-      - run: dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover --logger trx
+      - run: dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
 
   analyze:
     needs: [build, test]
@@ -21,7 +21,7 @@ jobs:
       - run: |
           dotnet sonarscanner begin -o:'jpittman23' -k:'jpittman23_Week_4' -d:sonar.login='54dd918b839b1a960f1b72990516160a954fbf66' -d:sonar.host.url='https://sonarcloud.io/'
           dotnet build
-          dotnet test -p:CollectCoverage=true
+          dotnet test -p:CollectCoverage=true -p:CoverletOutputFormat=opencover --logger trx
           dotnet sonarscanner end -d:sonar.login='54dd918b839b1a960f1b72990516160a954fbf66'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
